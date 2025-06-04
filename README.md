@@ -8,7 +8,7 @@
   <table width="100%">
     <tr>
       <td width="60%" align="left">
-        <img src="https://readme-typing-svg.demolab.com?font=Orbitron&size=28&duration=1200&pause=100&color=00D4FF&center=false&vCenter=true&multiline=true&width=400&height=150&lines=%E2%9A%A1+EMBEDDED+SYSTEMS;%F0%9F%A7%A0+MACHINE+LEARNING;%F0%9F%A4%96+ROBOTICS+CHAMPION;%F0%9F%93%A1+COMMUNICATION" alt="Typing SVG" />
+        <img src="https://readme-typing-svg.demolab.com?font=Orbitron&size=28&duration=1200&pause=100&color=F544FC&center=false&vCenter=true&multiline=true&width=400&height=150&lines=%E2%9A%A1+EMBEDDED+SYSTEMS;%F0%9F%A7%A0+MACHINE+LEARNING;%F0%9F%A4%96+ROBOTICS+CHAMPION;%F0%9F%93%A1+COMMUNICATION" alt="Typing SVG" />
       </td>
       <td width="40%" align="center">
         <img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="400" />
@@ -102,8 +102,6 @@
 </tr>
 </table>
 
----
-
 <!-- CONTACT -->
 <table align="center" width="80%">
 <tr>
@@ -134,14 +132,14 @@
         </td>
         <td align="center" width="25%">
           <a href="mailto:amrgadalla01@gmail.com">
-            <div style="background-color:#D14836; padding:20px; border-radius:15px; display:inline-block;">
+            <div style="background-color:#D14836; padding:2https://docs.google.com/document/d/1du96pzCc4WfkVCbtu-N6Ypbqt19cjUFcVxywfGWLRjU/edit?usp=sharing0px; border-radius:15px; display:inline-block;">
               <img src="https://user-images.githubusercontent.com/74038190/235294019-40007353-6219-4ec5-b661-b3c35136dd0b.gif" width="60" height="60" />
             </div><br>
             <img src="https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white" />
           </a>
         </td>
         <td align="center" width="25%">
-          <a href="https://www.facebook.com/profile.php?id=100009876543210" target="_blank">
+          <a href="https://www.facebook.com/amr.ashraf.7311/" target="_blank">
             <div style="background-color:#1877F2; padding:20px; border-radius:15px; display:inline-block;">
               <img src="https://user-images.githubusercontent.com/74038190/235294010-ec412ef5-e3da-4efa-b1d4-0ab4d4638755.gif" width="60" height="60" />
             </div><br>
@@ -160,5 +158,5 @@
 </div>
 
 <div align="center">
-  🌟 Crafted with a lot of 💜 and ☕ by <strong>Amr Ashraf</strong> 🌟
+  🌟 Crafted with a lot of ❤️ and ☕ by <strong>Amr</strong> 🌟
 </div>
