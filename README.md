@@ -1,6 +1,6 @@
 <!-- HEADER -->
 <div align="center">
-  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:E924EF,50:002B62,100:050C21&height=200&section=header&text=👋%20Hey%20there!%20Amr%20is%20here&fontSize=36&fontColor=fff&animation=twinkling&fontAlignY=35" />
+  <img src="https://capsule-render.vercel.app/api?type=waving&color=0:E924EF,50:002B62,100:050C21&height=150&section=header&text=👋%20Hey%20there!%20Amr%20is%20here&fontSize=36&fontColor=fff&animation=twinkling&fontAlignY=35" />
 </div>
 
 <!-- HERO SECTION -->
@@ -17,7 +17,11 @@
   </table>
 </div>
 
----
+<div id="header" align="center">
+  <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXZiMGhzczl1cno1YzhrbXRrbTZqc3g2eWFlNnNpeXVmbHEzNXFpaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/fynAG6TbXlff9iUL1c/giphy.gif" width="200"/>
+  <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExMGh5bHdydmw0aXVtaHZxcDVrMXJkdnQ2dGI1am9hMWlvb3J6bmpocSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/e66KfaMalmDFoGMf9c/giphy.gif" width="200"/>  
+  <img src="https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExcXZiMGhzczl1cno1YzhrbXRrbTZqc3g2eWFlNnNpeXVmbHEzNXFpaCZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/fynAG6TbXlff9iUL1c/giphy.gif" width="200"/>  
+</div>
 
 <!-- ABOUT ME PROFILE -->
 <div id="toc" align="center">
