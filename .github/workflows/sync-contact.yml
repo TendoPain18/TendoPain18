@@ -1,0 +1,150 @@
+name: Sync Contact Section to All Repos
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'README.md'
+  workflow_dispatch:  # Allows manual trigger from Actions tab
+
+jobs:
+  sync-contact:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Checkout profile repo
+      - name: Checkout profile repo
+        uses: actions/checkout@v3
+        with:
+          path: profile
+      
+      # Step 2: Extract contact section from profile README
+      - name: Extract contact section
+        run: |
+          cd profile
+          if grep -q "<!-- CONTACT -->" README.md && grep -q "<!-- END CONTACT -->" README.md; then
+            sed -n '/<!-- CONTACT -->/,/<!-- END CONTACT -->/p' README.md > contact.md
+            echo "Contact section extracted successfully"
+            cat contact.md
+          else
+            echo "ERROR: Contact markers not found in profile README"
+            exit 1
+          fi
+      
+      # Step 3: Get list of all your repositories
+      - name: Get all repositories
+        id: get-repos
+        run: |
+          # Get all repos for user TendoPain18 (excluding the profile repo itself)
+          curl -s -H "Authorization: token ${{ secrets.PAT_TOKEN }}" \
+            "https://api.github.com/users/TendoPain18/repos?per_page=100&type=owner" | \
+            jq -r '.[].name' | grep -v "^TendoPain18$" > repos.txt
+          
+          echo "Found repositories:"
+          cat repos.txt
+          
+          # Save repo list for next step
+          echo "repos<<EOF" >> $GITHUB_OUTPUT
+          cat repos.txt >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+      
+      # Step 4: Loop through each repo and update if it has contact tags
+      - name: Update all repos with contact tags
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          # Colors for better logging
+          GREEN='\033[0;32m'
+          YELLOW='\033[1;33m'
+          RED='\033[0;31m'
+          NC='\033[0m' # No Color
+          
+          updated_repos=0
+          skipped_repos=0
+          error_repos=0
+          
+          while IFS= read -r repo; do
+            echo -e "\n${YELLOW}═══════════════════════════════════════${NC}"
+            echo -e "${YELLOW}Checking repository: $repo${NC}"
+            echo -e "${YELLOW}═══════════════════════════════════════${NC}"
+            
+            # Clone the repository
+            if git clone "https://${{ secrets.PAT_TOKEN }}@github.com/TendoPain18/${repo}.git" "repo_${repo}" 2>/dev/null; then
+              cd "repo_${repo}"
+              
+              # Check if README.md exists
+              if [ ! -f "README.md" ]; then
+                echo -e "${YELLOW}⊘ No README.md found, skipping${NC}"
+                cd ..
+                rm -rf "repo_${repo}"
+                ((skipped_repos++))
+                continue
+              fi
+              
+              # Check if contact tags exist
+              if grep -q "<!-- CONTACT -->" README.md && grep -q "<!-- END CONTACT -->" README.md; then
+                echo -e "${GREEN}✓ Contact tags found! Updating...${NC}"
+                
+                # Remove old contact section
+                sed -i '/<!-- CONTACT -->/,/<!-- END CONTACT -->/d' README.md
+                
+                # Add new contact section
+                echo "" >> README.md
+                cat ../profile/contact.md >> README.md
+                
+                # Configure git
+                git config user.name "Contact Sync Bot"
+                git config user.email "github-actions[bot]@users.noreply.github.com"
+                
+                # Check if there are changes
+                if git diff --quiet README.md; then
+                  echo -e "${YELLOW}⊘ No changes needed, already up to date${NC}"
+                  ((skipped_repos++))
+                else
+                  # Commit and push
+                  git add README.md
+                  git commit -m "chore: Auto-sync contact section from profile
+
+This contact section is automatically synchronized from the profile repository.
+To update contact information, modify it in TendoPain18/TendoPain18 repo."
+                  
+                  if git push; then
+                    echo -e "${GREEN}✓ Successfully updated!${NC}"
+                    ((updated_repos++))
+                  else
+                    echo -e "${RED}✗ Failed to push changes${NC}"
+                    ((error_repos++))
+                  fi
+                fi
+              else
+                echo -e "${YELLOW}⊘ No contact tags found, skipping${NC}"
+                ((skipped_repos++))
+              fi
+              
+              cd ..
+              rm -rf "repo_${repo}"
+            else
+              echo -e "${RED}✗ Failed to clone repository${NC}"
+              ((error_repos++))
+            fi
+          done < repos.txt
+          
+          # Summary
+          echo -e "\n${GREEN}═══════════════════════════════════════${NC}"
+          echo -e "${GREEN}         SYNC SUMMARY${NC}"
+          echo -e "${GREEN}═══════════════════════════════════════${NC}"
+          echo -e "${GREEN}✓ Updated: $updated_repos repositories${NC}"
+          echo -e "${YELLOW}⊘ Skipped: $skipped_repos repositories${NC}"
+          echo -e "${RED}✗ Errors: $error_repos repositories${NC}"
+          echo -e "${GREEN}═══════════════════════════════════════${NC}"
+      
+      # Step 5: Create a summary comment
+      - name: Create job summary
+        run: |
+          echo "## 🔄 Contact Section Sync Complete" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "The contact section has been synchronized across all repositories with contact tags." >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Repositories Processed" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "Check the logs above for detailed information about each repository." >> $GITHUB_STEP_SUMMARY
