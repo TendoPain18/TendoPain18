@@ -152,6 +152,7 @@
   </td>
 </tr>
 </table>
+<!-- END CONTACT -->
 
 <!-- FOOTER -->
 <div align="center">
