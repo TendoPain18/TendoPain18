@@ -46,6 +46,8 @@ jobs:
           updated_repos=0
           skipped_repos=0
           error_repos=0
+          updated_list=""
+          skipped_list=""
           
           while IFS= read -r repo; do
             echo ""
@@ -61,16 +63,39 @@ jobs:
                 cd ..
                 rm -rf "repo_${repo}"
                 skipped_repos=$((skipped_repos + 1))
+                skipped_list="${skipped_list}- ${repo} (no README.md)\n"
                 continue
               fi
               
               if grep -q "<!-- CONTACT -->" README.md && grep -q "<!-- END CONTACT -->" README.md; then
                 echo "Contact tags found! Updating..."
                 
-                sed -i '/<!-- CONTACT -->/,/<!-- END CONTACT -->/d' README.md
-                
-                echo "" >> README.md
-                cat ../profile/contact.md >> README.md
+                # Create temporary file with the replacement
+                awk '
+                  /<!-- CONTACT -->/ {
+                    print
+                    while ((getline line < "../profile/contact.md") > 0) {
+                      if (line !~ /<!-- CONTACT -->/ && line !~ /<!-- END CONTACT -->/) {
+                        print line
+                      }
+                    }
+                    close("../profile/contact.md")
+                    found_end = 0
+                    while (getline > 0) {
+                      if (/<!-- END CONTACT -->/) {
+                        print
+                        found_end = 1
+                        break
+                      }
+                    }
+                    if (!found_end) exit 1
+                    next
+                  }
+                  /<!-- END CONTACT -->/ && !done {
+                    next
+                  }
+                  { print }
+                ' README.md > README.tmp && mv README.tmp README.md
                 
                 git config user.name "Contact Sync Bot"
                 git config user.email "github-actions[bot]@users.noreply.github.com"
@@ -78,6 +103,7 @@ jobs:
                 if git diff --quiet README.md; then
                   echo "No changes needed, already up to date"
                   skipped_repos=$((skipped_repos + 1))
+                  skipped_list="${skipped_list}- ${repo} (already up to date)\n"
                 else
                   git add README.md
                   git commit -m "chore: Auto-sync contact section from profile"
@@ -85,6 +111,7 @@ jobs:
                   if git push; then
                     echo "Successfully updated!"
                     updated_repos=$((updated_repos + 1))
+                    updated_list="${updated_list}- ${repo}\n"
                   else
                     echo "Failed to push changes"
                     error_repos=$((error_repos + 1))
@@ -93,6 +120,7 @@ jobs:
               else
                 echo "No contact tags found, skipping"
                 skipped_repos=$((skipped_repos + 1))
+                skipped_list="${skipped_list}- ${repo} (no contact tags)\n"
               fi
               
               cd ..
@@ -111,6 +139,17 @@ jobs:
           echo "Skipped: $skipped_repos repositories"
           echo "Errors: $error_repos repositories"
           echo "======================================="
+          
+          # Save summary data for next step
+          echo "updated_repos=${updated_repos}" >> $GITHUB_ENV
+          echo "skipped_repos=${skipped_repos}" >> $GITHUB_ENV
+          echo "error_repos=${error_repos}" >> $GITHUB_ENV
+          echo "UPDATED_LIST<<EOF" >> $GITHUB_ENV
+          echo -e "${updated_list}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
+          echo "SKIPPED_LIST<<EOF" >> $GITHUB_ENV
+          echo -e "${skipped_list}" >> $GITHUB_ENV
+          echo "EOF" >> $GITHUB_ENV
       
       - name: Create job summary
         run: |
@@ -118,6 +157,26 @@ jobs:
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "The contact section has been synchronized across all repositories with contact tags." >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "### 📊 Repositories Processed" >> $GITHUB_STEP_SUMMARY
+          echo "### 📊 Summary Statistics" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          echo "Check the logs above for detailed information about each repository." >> $GITHUB_STEP_SUMMARY
+          echo "- ✅ **Updated:** ${{ env.updated_repos }} repositories" >> $GITHUB_STEP_SUMMARY
+          echo "- ⏭️ **Skipped:** ${{ env.skipped_repos }} repositories" >> $GITHUB_STEP_SUMMARY
+          echo "- ❌ **Errors:** ${{ env.error_repos }} repositories" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          
+          if [ "${{ env.updated_repos }}" != "0" ]; then
+            echo "### ✅ Updated Repositories" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "${{ env.UPDATED_LIST }}" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          if [ "${{ env.skipped_repos }}" != "0" ]; then
+            echo "### ⏭️ Skipped Repositories" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "${{ env.SKIPPED_LIST }}" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+          fi
+          
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "*Check the detailed logs above for more information about each repository.*" >> $GITHUB_STEP_SUMMARY
