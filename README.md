@@ -8,7 +8,7 @@
   <table width="100%">
     <tr>
       <td width="60%" align="left">
-        <img src="https://readme-typing-svg.demolab.com?font=Orbitron&size=28&duration=1200&pause=100&color=F544FC&center=false&vCenter=true&multiline=true&width=400&height=150&lines=%F0%9F%93%A1+COMMUNICATION;%F0%9F%A7%A0+MACHINE+LEARNING;%F0%9F%A4%96+ROBOTICS+CHAMPION;%E2%9A%A1+EMBEDDED+SYSTEMS" alt="Typing SVG" />
+        <img src="https://readme-typing-svg.demolab.com?font=Orbitron&size=28&duration=1200&pause=100&color=F544FC&center=false&vCenter=true&multiline=true&width=400&height=150&lines=%F0%9F%93%A1+COMMUNICATIONS;%F0%9F%A7%A0+MACHINE+LEARNING;%F0%9F%A4%96+ROBOTICS+CHAMPION;%E2%9A%A1+EMBEDDED+SYSTEMS" alt="Typing SVG" />
       </td>
       <td width="40%" align="center">
         <img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="400" />
