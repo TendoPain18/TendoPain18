@@ -8,7 +8,7 @@
   <table width="100%">
     <tr>
       <td width="60%" align="left">
-        <img src="https://readme-typing-svg.demolab.com?font=Orbitron&size=28&duration=1200&pause=100&color=F544FC&center=false&vCenter=true&multiline=true&width=400&height=150&lines=%E2%9A%A1+EMBEDDED+SYSTEMS;%F0%9F%A7%A0+MACHINE+LEARNING;%F0%9F%A4%96+ROBOTICS+CHAMPION;%F0%9F%93%A1+COMMUNICATION" alt="Typing SVG" />
+        <img src="https://readme-typing-svg.demolab.com?font=Orbitron&size=28&duration=1200&pause=100&color=F544FC&center=false&vCenter=true&multiline=true&width=400&height=150&lines=%F0%9F%93%A1+COMMUNICATION;%F0%9F%A7%A0+MACHINE+LEARNING;%F0%9F%A4%96+ROBOTICS+CHAMPION;%E2%9A%A1+EMBEDDED+SYSTEMS" alt="Typing SVG" />
       </td>
       <td width="40%" align="center">
         <img src="https://user-images.githubusercontent.com/74038190/225813708-98b745f2-7d22-48cf-9150-083f1b00d6c9.gif" width="400" />
@@ -45,11 +45,12 @@
   <td width="65%" align="center" valign="middle">
     <p align="center"><img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="30" height="30" valign="middle" /> <strong>SYSTEM SPECIFICATIONS</strong></p>
     <div align="center">
-    🎓 <strong>Senior Communications & Info Engineering Student @ Zewail City</strong><br>
+    🎓 <strong>Senior Communications & Information Engineering Student @ Zewail City</strong><br>
+    📡 <strong>Passionate about Wireless Communications, Signal Processing & MIMO</strong><br>
+    🧠 <strong>Machine Learning for Signal & Data-Driven Systems</strong><br>
     🏆 <strong>VEX U World Championship Judges Award Winner</strong><br>
-    🤖 <strong>Robotics Mastermind & Hardware Innovator</strong><br>
-    🧠 <strong>Machine Learning Architect</strong><br>
-    ⚡ <strong>Embedded Systems Wizard</strong><br>
+    🤖 <strong>Robotics Engineer & Hardware Innovator</strong><br>
+    ⚡ <strong>Embedded Systems Development</strong><br>
     </div>
   </td>
 </tr>
