@@ -46,10 +46,10 @@
     <p align="center"><img src="https://media.giphy.com/media/WUlplcMpOCEmTGBtBW/giphy.gif" width="30" height="30" valign="middle" /> <strong>SYSTEM SPECIFICATIONS</strong></p>
     <div align="center">
     🎓 <strong>Senior Communications & Information Engineering Student @ Zewail City</strong><br>
-    📡 <strong>Passionate about Wireless Communications, Signal Processing & MIMO</strong><br>
-    🧠 <strong>Machine Learning for Signal & Data-Driven Systems</strong><br>
+    📡 <strong>Focused on Digital Signal Processing & Wireless Communications</strong><br>
+    🧠 <strong>Signal Analysis, Spectral Methods & Adaptive Filtering</strong><br>
+    🤖 <strong>Applying Machine Learning to Signal Processing</strong><br>
     🏆 <strong>VEX U World Championship Judges Award Winner</strong><br>
-    🤖 <strong>Robotics Engineer & Hardware Innovator</strong><br>
     ⚡ <strong>Embedded Systems Development</strong><br>
     </div>
   </td>
